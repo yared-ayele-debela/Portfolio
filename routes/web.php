@@ -44,7 +44,6 @@ Route::get('user/add',[UserController::class,'addUser'])->name('addUser');
 //this routing is for display all users
 Route::get('userr/allusers',[UserController::class,'allUsers'])->name('allUsers');
 
-Route::get('portiflio/home',[FontendController::class,'display'])->name('portifoliodashboard');
 // User Crud Operation
 
 Route::post('user/store',[UserController::class,'store'])->name('storeuser');
@@ -59,3 +58,8 @@ Route::get('user/{id}',[UserController::class,'destory'])->name('deleteUser');
 
 Route::get('active/{id}',[UserController::class,'activeuser'])->name('activeuser');
 Route::get('inactive/{id}',[UserController::class,'inactiveuser'])->name('inactiveuser');
+
+
+//routing for fontend webpages
+
+Route::get('portfolio',[FontendController::class,'index'])->name('fondend_portfolio');
