@@ -57,8 +57,8 @@
                      @endif
                       </td>
                        <td>
-                        <a href="{{ url('user/'.$users->id.'/edit') }}" class=" btn btn-warning">Edit</a>
-                        <a href="{{ url('user/'.$users->id) }}" class="btn btn-danger" id="delete">Delete</a>
+                        <a href="{{ url('user/'.$users->id.'/edit') }}" class=" btn btn-warning btn-sm">Edit</a>
+                        <a href="{{ url('user/'.$users->id) }}" class="btn btn-danger btn-sm" id="delete">Delete</a>
                        </td>
                   @endforeach
                  </tbody>

@@ -63,3 +63,10 @@ Route::get('inactive/{id}',[UserController::class,'inactiveuser'])->name('inacti
 //routing for fontend webpages
 
 Route::get('portfolio',[FontendController::class,'index'])->name('fondend_portfolio');
+
+
+Route::get('resume',[FontendController::class,'resume'])->name('resume');
+Route::get('blog',[FontendController::class,'blog'])->name('blog');
+Route::get('contact',[FontendController::class,'contact'])->name('contact');
+Route::get('service',[FontendController::class,'service'])->name('service');
+Route::get('myportfolio',[FontendController::class,'portfolio'])->name('myportfolio');
