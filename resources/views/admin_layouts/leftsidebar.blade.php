@@ -8,6 +8,13 @@
            <li> <a href="{{ route('allUsers') }} " class="{{ request()->is('userr/allusers')? 'active':'' }}"> <i class="bi bi-circle"></i><span>Lists Of Users</span></a></li>
         </ul>
      </li>
+     <li class="nav-item pt-4 menu-open">
+      <a class="{{ request()->is('create_category')||('user/add')? 'nav-link':'' }}" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#"> <i class="bi bi-person-bounding-box  "></i><span>Category Managements</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+      <ul id="components-nav" class=" nav-content collapse show " data-bs-parent="#sidebar-nav">
+         <li> <a href="{{ route('create_category') }}" class="{{ request()->is('create_category')? 'active':'' }}"> <i class=" bi bi-circle active "></i><span>Add Category</span> </a></li>
+         <li> <a href="{{ route('allUsers') }} " class="{{ request()->is('userr/allusers')? 'active':'' }}"> <i class="bi bi-circle"></i><span>Lists Of Categories</span></a></li>
+      </ul>
+   </li>
      <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#"> <i class="bi bi-journal-text"></i><span>My Project</span><i class="bi bi-chevron-down ms-auto"></i></a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">

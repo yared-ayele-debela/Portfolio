@@ -19,6 +19,10 @@ class CreateResumesTable extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('address');
+            $table->string('city');
+            $table->string('project');
+            $table->string('language');
+            $table->string('interests');
             $table->text('objective')->nullable();
             $table->text('summary')->nullable();
             $table->text('education')->nullable();

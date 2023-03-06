@@ -83,11 +83,11 @@ class UserController extends Controller
 
     public function update(Request $request,$id){
 
-                    $this->validate($request, [
-                        'name'=>'required',
-                        'email'=>'required:email',
-                        'gender'=>'required',
-                        
+            $this->validate($request, [
+                    'name'=>'required',
+                    'email'=>'required:email',
+                    'gender'=>'required',
+                    
             ]);
             //dd($request->all());
             try{

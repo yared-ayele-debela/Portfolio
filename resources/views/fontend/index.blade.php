@@ -16,7 +16,7 @@
                 </div><!--//col-->
                 
                 <div class="col-md-5 col-lg-5">
-                    <img class="shadow-lg border-1 profile-image img-fluid mb-3 mb-lg-0 me-md-0" src="{{asset('fontend/assets/images/profile-lg.jpg')}}" alt="">
+                    <img class="shadow-lg border-1 profile-image img-fluid mb-3 mb-lg-0 me-md-0" style="border-radius: 3rem 1rem;" src="{{asset('fontend/assets/images/profile-lg.jpg')}}" alt="">
                 </div>
             </div>
         </div>

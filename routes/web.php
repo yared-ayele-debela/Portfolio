@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\FontendController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -53,18 +54,22 @@ Route::get('user/{id}/editprofile',[UserController::class,'editprofile'])->name(
 
 Route::put('user/{id}',[UserController::class,'update'])->name('Userupdate');
 Route::put('users/{id}',[UserController::class,'updateprofile'])->name('updateprofile');
-
 Route::get('user/{id}',[UserController::class,'destory'])->name('deleteUser');
-
 Route::get('active/{id}',[UserController::class,'activeuser'])->name('activeuser');
 Route::get('inactive/{id}',[UserController::class,'inactiveuser'])->name('inactiveuser');
+//routing for categories
+
+
+Route::match(['get', 'post'], '/category',[CategoryController::class,'categories'])->name('category');
+Route::match(['get', 'put'], '/categories/{id}',[CategoryController::class,'edit'])->name('categories');
+Route::get('create_category',[CategoryController::class,'create'])->name('create_category');
+Route::get('category/{id}',[CategoryController::class,'destory'])->name('deletecategory');
+Route::get('active/category/{id}',[CategoryController::class,'activecategory'])->name('activecategory');
+Route::get('inactive/category/{id}',[CategoryController::class,'inactivecategory'])->name('inactivecategory');
 
 
 //routing for fontend webpages
-
 Route::get('portfolio',[FontendController::class,'index'])->name('fondend_portfolio');
-
-
 Route::get('resume',[FontendController::class,'resume'])->name('resume');
 Route::get('blog',[FontendController::class,'blog'])->name('blog');
 Route::get('contact',[FontendController::class,'contact'])->name('contact');

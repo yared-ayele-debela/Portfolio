@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="{{asset('fontend/assets/plugins/tiny-slider/tiny-slider.css')}}">
          
 	<!-- Theme CSS -->  
-	<link id="theme-style" rel="stylesheet" href="{{asset('fontend/assets/css/theme-1.css')}}">
+	<link id="theme-style" rel="stylesheet" href="{{asset('fontend/assets/css/theme-6.css')}}">
 
 </head> 
 
