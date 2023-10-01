@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Admin;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -22,42 +24,30 @@ class UserController extends Controller
 
         return view('User.adduser');
     }
-    public function store(Request $request){
-         $this->validate($request, [
-                                'name'=>'required',
-                                'email'=>'required:email',
-                                'gender'=>'required',
-                                'usertype'=>'required',
-                                'password'=>'required:min:6',
 
-         ]);
-         //dd($request->all());
-         try{
-            DB::beginTransaction();
-            $create_user=User::create([
-                'name'=>$request->name,
-                'email'=>$request->email,
-                'gender'=>$request->gender,
-                'usertype'=>$request->usertype,
-                'password'=>bcrypt($request->password),
-                
-            ]);
-            if(!$create_user){
-                DB::rollBack();  
-               
-             return back()->with('error','Something went wrong ');
-        
-            }
-            DB::commit();
-            notify()->success('User Saved Successfully!',);
-            return redirect()->route('allUsers');
-         }catch(\Throwable $th)
-         {
-         DB::rollBack();
-         throw $th;
-        }
+    // public function store(Request $request){
+    //      $this->validate($request, [
+    //                             'name'=>'required',
+    //                             'email'=>'required:email',
+    //                             'gender'=>'required',
 
-    }
+    //             ]);
+
+    //         $user = new User();
+    //         $user->profile_image = $path;
+    //         $user->name = $request->input('name');
+    //         $user->last_name = $request->input('last_name');
+    //         $user->username = $request->input('username');
+    //         $user->email = $request->input('email');
+    //         $user->phone = $request->input('phone');
+    //         $user->gender = $request->input('gender');
+    //         $user->status = 1;
+
+    //         $user->save();
+
+    //     return redirect()->route('allUsers');
+
+    // }
     public function allUsers(){
         $users =User::all();
         return view('User.allluser')->with('users',$users);
@@ -70,9 +60,9 @@ class UserController extends Controller
     }
     public function logout(){
         Auth::logout();
-        return redirect()->route('login');
+        return redirect()->view('User.allluser');
     }
-   
+
     public function edit($id){
 
       $users=User::whereId($id)->first();
@@ -85,49 +75,60 @@ class UserController extends Controller
 
             $this->validate($request, [
                     'name'=>'required',
-                    'email'=>'required:email',
+                    'email'=>'required',
                     'gender'=>'required',
-                    
-            ]);
-            //dd($request->all());
-            try{
-            DB::beginTransaction();
-            $update_user=User::where('id',$id)->update([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'usertype'=>$request->usertype,
-            'gender'=>$request->gender,
-            'fullname'=>$request->fullname,
-            'address'=>$request->address,
-            'company'=>$request->company,
-            'job'=>$request->job,
-            'phone'=>$request->phone,
-            ]);
-            if(!$update_user){
-            DB::rollBack();  
 
-            return back()->with('error','Something went wrong ');
 
-            }
-            DB::commit();
-            notify()->warning('User Updated Successfully!','Updated');
-            return redirect()->route('allUsers');
-            }catch(\Throwable $th)
-            {
-            DB::rollBack();
-            throw $th;
-            }
-    }
+            ]);
+            // dd($request->all());
+            // if($request->hasFile('cover_image')){
+            //     dd("ture");
+            // }else{
+            //     dd("flase");
+            // }
+            $user =user::find($id);
+
+            if($request->hasFile('cover_image')){
+
+                // Storage::disk('public')->delete('user/'.$user->cover_image);
+                //get file name with ext
+                $fileNameWithExt=$request->file('cover_image')->getClientOriginalName();
+                //get just file name
+                $fileName=pathinfo($fileNameWithExt,PATHINFO_FILENAME);
+                //get just file extenstion
+                $extension=$request->file('cover_image')->getClientOriginalExtension();
+                //file name to store
+                $fileNameToStore=$fileName.'_'.time().'.'.$extension;
+                //upload cover_image
+                $path=$request->file('cover_image')->storeAs('public/user',$fileNameToStore);
+
+                $user->cover_image=$fileNameToStore;
+                // $user->save();
+               }
+            $user->name=$request->input('name');
+            $user->email=$request->input('email');
+            $user->gender=$request->input('gender');
+            $user->fullname=$request->input('fullname');
+            $user->phone=$request->input('phone');
+
+            $user->update();
+
+        notify()->warning('User Updated Successfully!','Updated');
+        return redirect()->route('allUsers');
+}
     // update profile
-       
+
     public function destory($id){
         $delete_user=User::find($id);
-        if($delete_user->usertype=='Admin'){
+        if(($delete_user->id==8) && ($delete_user->email=="yared@gmail.com")){
             notify()->error('User is Admin Not Deleted!','Denied');
+            return back();
         }else{
+
         $delete_user->delete();
+        notify()->error('User Deleted Successfully !','Deleted');
+
         }
-        return back();
     }
 
      //acitve users
@@ -149,7 +150,7 @@ class UserController extends Controller
         notify()->error('User Status is Inactive','Inactive');
         return back();
     }
-    
+
 
 
 }

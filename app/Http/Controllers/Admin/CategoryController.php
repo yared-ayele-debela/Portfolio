@@ -6,34 +6,52 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use CreateCategoryTable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
     //
     public function categories(Request $request){
         $category=Category::all();
-        
+
         if($request->isMethod('POST')){
+
             $this->validate($request, [
                 'name'=>'required',
-                'slug'=>'required',
                 'description'=>'required',
-                
+
             ]);
             $category =new Category();
+            // dd($request->hasFile('cover_image'));
+            if($request->hasFile('cover_image')){
+                // Storage::disk('public')->delete('category/'.$category->cover_image);
+                //get file name with ext
+                $fileNameWithExt=$request->file('cover_image')->getClientOriginalName();
+                //get just file name
+                $fileName=pathinfo($fileNameWithExt,PATHINFO_FILENAME);
+                //get just file extenstion
+                $extension=$request->file('cover_image')->getClientOriginalExtension();
+                //file name to store
+                $fileNameToStore=$fileName.'_'.time().'.'.$extension;
+                //upload cover_image
+                $path=$request->file('cover_image')->storeAs('public/category',$fileNameToStore);
+
+                $category->cover_image=$fileNameToStore;
+                // $category->save();
+
+               }
             $category->name=$request->input('name');
-            $category->slug=$request->input('slug');
             $category->description=$request->input('description');
-            $category->status=1;
-            
+
             $category->save();
+
            return redirect('category');
         }
 
         return view('category.allcategories',compact('category'));
     }
     public function create(){
-        
+
         return view('category.addcategory');
     }
 
@@ -41,26 +59,41 @@ class CategoryController extends Controller
         if($request->isMethod('PUT')){
             $this->validate($request, [
                 'name'=>'required',
-                'slug'=>'required',
                 'description'=>'required',
-                
+
             ]);
             $category =Category::find($category_id);
-            
+            if($request->hasFile('cover_image')){
+                Storage::disk('public')->delete('category/'.$category->cover_image);
+                //get file name with ext
+                $fileNameWithExt=$request->file('cover_image')->getClientOriginalName();
+                //get just file name
+                $fileName=pathinfo($fileNameWithExt,PATHINFO_FILENAME);
+                //get just file extenstion
+                $extension=$request->file('cover_image')->getClientOriginalExtension();
+                //file name to store
+                $fileNameToStore=$fileName.'_'.time().'.'.$extension;
+                //upload cover_image
+                $path=$request->file('cover_image')->storeAs('public/categorys',$fileNameToStore);
+
+                $category->cover_image=$fileNameToStore;
+
+               }
             $category->name=$request->input('name');
-            $category->slug=$request->input('slug');
             $category->description=$request->input('description');
-            $category->status=1;
-            
+
             $category->update();
+
+            notify()->success('category is Updated','Updated');
+
            return redirect('category');
         }
-        
+
         $category=Category::find($category_id);
 
         return view('category.editcategory',compact('category'));
-        
-        
+
+
     }
 
     public function destory($id){

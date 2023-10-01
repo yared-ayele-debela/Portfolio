@@ -21,7 +21,7 @@
                     <a class="nav-link bg-light" href="{{ route('allUsers') }}"><i class=" fas fa-plus"></i>All User</a>
                   </li>
                  </ul>
-                 <form method="POST" action="{{ url('user/'.$users->id) }}"  class="row g-3 ">
+                 <form method="POST" action="{{ url('user/'.$users->id) }}"  class="row g-3"  enctype="multipart/form-data">
                   @csrf
                   @method('PUT')
                   <div class="col-md-6 ">
@@ -29,22 +29,18 @@
                       <input type="text" name="fullname" class="form-control" value="{{$users->fullname}}"></div>
                     <div class="col-md-6">
                        <label for="inputText" class="form-label ">Name</label>
-
-                        <input type="text" name="name" value="{{ $users->name }}" class="form-control"></div>
-
-                          
-                     <div class="col-md-12 ">
-                        <label for="address" class="form-label">Address</label>
-                     
-                        <input type="text" name="address" class="form-control" value="{{ $users->address }}"></div>
-                     
-                     <div class="col-md-6 ">
-                        <label for="company" class="form-label">Company</label>
-                        <input type="text" name="company" class="form-control" value="{{ $users->company }}"></div>
-                     <div class="col-md-6 ">
-                        <label for="job" class="form-label">Job</label>
-                        <input type="text" name="job" class="form-control" value="{{ $users->job }}"></div>
-                     <div class="col-md-6 ">
+                        <input type="text" name="name" value="{{ $users->name }}" class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label  for="cover_image" class="m-2">Cover image</label>
+                        <input type="file" id="input-file-now-custom-3" class="form-control m-2" name="cover_image">
+                        @error('cover_image')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <img src="{{ asset('/storage/user/'.$users->cover_image) }}" class="img-responsive" style="max-height: 50px; max-width: 50px;" alt="" srcset="">
+                        <br>
+                    </div>
+                    <div class="col-md-6 ">
                         <label for="phone" class="form-label">Phone Number</label>
                         <input type="number" name="phone" class="form-control" value="{{ $users->phone }}"></div>
                     <div class="col-md-6 ">
@@ -52,7 +48,6 @@
                         <input type="email" name="email" value="{{ $users->email }}"" class="form-control"></div>
                     <div class="col-md-4">
                      <label class="form-label">Gender</label>
-
                         <select class="form-select" aria-label="Default select example" name="gender">
                            @if($users->gender=="Male")
                            <option class=" selected" value="{{ $users->id }}">{{ $users->gender }}</option>
@@ -74,31 +69,6 @@
                            @endif
                         </select>
                      </div>
-                     <div class="col-md-2">
-                        <label class="form-label">User Type</label>
-                
-                           <select class="form-select"  name="usertype">
-                              @if($users->usertype=="Admin")
-                              <option class=" selected" value="{{ $users->id }}">{{ $users->usertype }}</option>
-                              <option value="Super Admin">Super Admin</option>
-                              <option value="User">User</option>
-                              @elseif ($users->usertype=="Super Admin")
-                              <option class=" selected" value="{{ $users->id }}">{{ $users->usertype }}</option>
-                              <option value="Admin">Admin</option>
-                              <option value="User">User</option>
-                              @elseif ($users->usertype=="User")
-                              <option class=" selected" value="{{ $users->id }}">{{ $users->usertype }}</option>
-                              <option value="Admin">Admin</option>
-                              <option value="Super Admin">Super Admin</option>
-                              @else
-                              <option value="" selected disabled>--User Type--</option>
-                              <option value="Admin">Admin</option>
-                              <option value="Super Admin">Super Admin</option>
-                              <option value="User">User</option>
-                              @endif
-                           </select>
-           
-                      </div>                      
                     <div class="row mb-3">
                      <label class="form-label"></label>
                         <div class="col-sm-10 ">

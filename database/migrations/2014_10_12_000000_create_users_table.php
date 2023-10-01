@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('username')->nullable();
-            $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('email')->unique();
             $table->string('bio')->nullable();
@@ -30,7 +29,9 @@ return new class extends Migration
             $table->string('linkedin')->nullable();
             $table->string('facebook')->nullable();
             $table->string('twitter')->nullable();            
-            $table->string('status')->default(0);
+            $table->string('status')->default(1);
+            $table->string('profile_image')->nullable();
+            $table->string('cover_image')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();

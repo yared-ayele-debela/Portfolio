@@ -1,38 +1,38 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
 
 <!-- Mirrored from themes.3rdwavemedia.com/devcard/bs5/2.0/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 Feb 2023 14:02:15 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-	<title>DevCard - Bootstrap 5 vCard &amp; Portfolio Template For Developers</title>
-	
+	<title>Yared Ayele Debela</title>
+
 	<!-- Meta -->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="DevCard Bootstrap 5 Template">
-	<meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
-	<link rel="shortcut icon" href="favicon.ico"> 
-	
+	<meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+	<link rel="shortcut icon" href="favicon.ico">
+
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-	
+
 	<!-- FontAwesome JS -->
     <script defer src="{{asset('fontend/assets/fontawesome/js/all.js') }}"></script>
-    
+
     <!-- Plugin CSS -->
     <link rel="stylesheet" href="{{asset('fontend/assets/plugins/tiny-slider/tiny-slider.css')}}">
-         
-	<!-- Theme CSS -->  
+
+	<!-- Theme CSS -->
 	<link id="theme-style" rel="stylesheet" href="{{asset('fontend/assets/css/theme-6.css')}}">
 
-</head> 
+</head>
 
 <body>
-    @include('fontend.sidebar')
+    @include('fontend.sidebar',['resume' => $resume])
 
-	<div class="main-wrapper">	
-		
+	<div class="main-wrapper">
+
 	@yield('content')
 
 
@@ -58,19 +58,19 @@
     @include('fontend.footer')
 	</div>
 		<!-- Javascript -->
-	<script src="{{asset('fontend/assets/plugins/popper.min.js')}}"></script> 
+	<script src="{{asset('fontend/assets/plugins/popper.min.js')}}"></script>
 	<script src="{{asset('fontend/assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
-	
+
 	<script src="{{asset('fontend/assets/plugins/tiny-slider/min/tiny-slider.js')}}"></script>
 	<script src="{{asset('fontend/assets/js/testimonials.js')}}"></script>
 
 	<!-- Style Switcher (REMOVE ON YOUR PRODUCTION SITE) -->
 	<script src="{{asset('fontend/assets/js/demo/style-switcher.js')}}"></script>
-	
+
 	<!-- Dark Mode -->
 	<script src="{{asset('fontend/assets/plugins/js-cookie.min.js')}}"></script>
-	<script src="{{asset('fontend/assets/js/dark-mode.js')}}"></script>   
-	
+	<script src="{{asset('fontend/assets/js/dark-mode.js')}}"></script>
+
 </body>
 
-</html> 
+</html>

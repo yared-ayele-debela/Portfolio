@@ -5,16 +5,17 @@
         <h2 class="heading">Portfolio</h2>
         <div class="intro">
         <p>Welcome to my online portfolio. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. I'm taking on freelance work at the moment. Want some help building your software?</p>
-        
+
         </div>
         <a class="btn btn-primary" href="contact.html" target="_blank"><i class="fas fa-paper-plane me-2"></i>Hire Me</a>
-        
-        
+
+
     </div><!--//container-->
 </section>
 <section class="projects-list px-3 py-5 p-md-5">
     <div class="container">
         <div class="text-center">
+            {{-- {{ $resume->fullname}} --}}
             <ul id="filters" class="filters mb-5 mx-auto   ps-0">
                 <li class="type active mb-3 mb-lg-0" data-filter="*">All</li>
                 <li class="type  mb-3 mb-lg-0" data-filter=".webapp">We App</li>
@@ -23,7 +24,7 @@
                 <li class="type  mb-3 mb-lg-0" data-filter=".backend">Backend</li>
             </ul><!--//filters-->
         </div>
-        
+
         <div class="project-cards row isotope">
             <div class="isotope-item col-md-6 mb-5 mobileapp frontend">
                 <div class="card project-card">
@@ -49,7 +50,7 @@
                     </div><!--//link-mask-->
                 </div><!--//card-->
             </div><!--//col-->
-            <div class="isotope-item col-md-6 mb-5 webapp frontend">	
+            <div class="isotope-item col-md-6 mb-5 webapp frontend">
                 <div class="card project-card">
                     <div class="row">
                         <div class="col-12 col-xl-5 card-img-holder">
@@ -218,7 +219,7 @@
                 </div><!--//card-->
             </div><!--//col-->
         </div><!--//row-->
-    
+
     </div>
 </section>
 @endsection

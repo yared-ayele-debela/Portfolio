@@ -1,23 +1,45 @@
 @extends('fontend.fontend_layout')
 @section('content')
+<style>
+    .description-container {
+    max-width: 100%; /* Set your desired maximum width */
+}
+</style>
     <section class="about-me-section p-3 p-lg-5 theme-bg-light">
         <div class="container">
-            <div class="profile-teaser row">
-                
-                <div class="col">
-                    <h2 class="name font-weight-bold mb-1">Simon Doe</h2>
-                    <div class="tagline mb-3">Senior Software Engineer</div>
-                    <div class="bio mb-4">I'm a software engineer specialised in frontend and backend development for complex scalable web apps. I write about software development on <a class="text-link" href="blog-home.html">my blog</a>. Want to know how I may help your project? Check out my project <a class="text-link" href="projects.html">portfolio</a> and <a class="text-link" href="resume.html">online resume</a>.
+            <div class="profile-teaser ">
+                <div class="container row">
+                    <div class="col-lg-8">
+                        <h2 class="name font-weight-bold mb-1">{{ $resume->fullname}} </h2>
+                        <div class="tagline mb-3">{{ $resume->profession }}</div>
+                        <div class="description-container mb-4">
+                            {!!$resume->description !!}
+                        </div><!--//bio-->
+                        <div class="mb-4">
+                            <a class="btn btn-primary me-2 mb-3" href="{{ route('portifolio') }}"><i class="fas fa-arrow-alt-circle-right me-2"></i><span class="d-none d-md-inline">View</span> Portfolio</a>
+                            <a class="btn btn-secondary mb-3" href="{{ route('resume') }}"><i class="fas fa-file-alt me-2"></i><span class="d-none d-md-inline">View</span> Resume</a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <img class="shadow-lg border-1 profile-image img-fluid " style="border-radius: 3rem 1rem;" src="{{ asset('/storage/resume/'.$resume['image']) }}" alt="">
+                    </div>
+                </div>
+            {{-- @foreach ($resume as $resume ) --}}
+                {{-- <div class="col-md-6 col-lg-8">
+                    <h2 class="name font-weight-bold mb-1">{{ $resume->fullname}} </h2>
+                    <div class="tagline mb-3">{{ $resume->profession }}</div>
+                    <div class="bio mb-4 ">
+                        {!!$resume->description !!}
                     </div><!--//bio-->
                     <div class="mb-4">
                         <a class="btn btn-primary me-2 mb-3" href="{{ route('portifolio') }}"><i class="fas fa-arrow-alt-circle-right me-2"></i><span class="d-none d-md-inline">View</span> Portfolio</a>
                         <a class="btn btn-secondary mb-3" href="{{ route('resume') }}"><i class="fas fa-file-alt me-2"></i><span class="d-none d-md-inline">View</span> Resume</a>
                     </div>
                 </div><!--//col-->
-                
-                <div class="col-md-5 col-lg-5">
-                    <img class="shadow-lg border-1 profile-image img-fluid mb-3 mb-lg-0 me-md-0" style="border-radius: 3rem 1rem;" src="{{asset('fontend/assets/images/profile-lg.jpg')}}" alt="">
-                </div>
+                <div class="col-md-6 col-lg-6">
+                    <img class="shadow-lg border-1 profile-image img-fluid " style="border-radius: 3rem 1rem;" src="{{ asset('/storage/resume/'.$resume['image']) }}" alt="">
+                </div> --}}
             </div>
         </div>
     </section><!--//about-me-section-->
@@ -40,7 +62,7 @@
 							<div class="item-desc">List skills/technologies here. You can change the icon above to any of the 1500+ <a class="theme-link" href="https://fontawesome.com/" target="_blank">FontAwesome 5 free icons</a> available. Aenean commodo ligula eget dolor.  </div>
 						</div><!--//item-inner-->
 					</div><!--//item-->
-					
+
 					<div class="item col-6 col-lg-3">
 						<div class="item-inner">
 							<div class="item-icon"><i class="fab fa-node-js"></i></div>
@@ -48,7 +70,7 @@
 							<div class="item-desc">List skills/technologies here. You can change the icon above to any of the 1500+ <a class="theme-link" href="https://fontawesome.com/" target="_blank">FontAwesome 5 free icons</a> available. Aenean commodo ligula eget dolor.  </div>
 						</div><!--//item-inner-->
 					</div><!--//item-->
-					
+
 					<div class="item col-6 col-lg-3">
 						<div class="item-inner">
 							<div class="item-icon"><i class="fab fa-python"></i></div>
@@ -86,18 +108,18 @@
 					</div><!--//item-->
 				</div><!--//row-->
 				<div class="text-center py-3"><a href="{{ route('service') }}" class="btn btn-primary"><i class="fas fa-arrow-alt-circle-right me-2"></i>Services &amp; Pricing
-					
+
 				</a></div>
-				
+
 			</div><!--//container-->
 		</section>
-		
+
 		<div class="container"><hr></div>
-		
+
 		<section class="testimonials-section p-3 p-lg-5">
 			<div class="container">
 				<h2 class="section-title font-weight-bold mb-5">Testimonials</h2>
-				
+
 				<div class="testiomonial-carousel-container">
 					<div class="testimonial-carousel  tiny-slider">
 	                    <div class="item">
@@ -119,7 +141,7 @@
 								</div>
 							</div><!--//item-inner-->
 						</div><!--//item-->
-						
+
 						<div class="item">
 							<div class="item-inner">
 								<div class="quote-holder">
@@ -139,7 +161,7 @@
 								</div>
 							</div><!--//item-inner-->
 						</div><!--//item-->
-						
+
 						<div class="item">
 							<div class="item-inner">
 								<div class="quote-holder">
@@ -159,7 +181,7 @@
 								</div>
 						    </div><!--//item-inner-->
 						</div><!--//item-->
-						
+
 						<div class="item">
 							<div class="item-inner">
 								<div class="quote-holder">
@@ -179,7 +201,7 @@
 								</div>
 						    </div><!--//item-inner-->
 						</div><!--//item-->
-						
+
 						<div class="item">
 							<div class="item-inner">
 								<div class="quote-holder">
@@ -199,7 +221,7 @@
 								</div>
 						    </div><!--//item-inner-->
 						</div><!--//item-->
-						
+
 						<div class="item">
 							<div class="item-inner">
 								<div class="quote-holder">
@@ -219,13 +241,13 @@
 								</div>
 						    </div><!--//item-inner-->
 						</div><!--//item-->
-					</div><!--//testimonial-carousel-->	
-				</div><!--//testimonial-carousel-container-->	
+					</div><!--//testimonial-carousel-->
+				</div><!--//testimonial-carousel-container-->
 			</div><!--//container-->
 		</section><!--//testimonials-section-->
-		
+
 		<div class="container"><hr></div>
-		
+
 		<section class="featured-section p-3 p-lg-5">
 			<div class="container">
 				<h2 class="section-title font-weight-bold mb-5">Featured Projects</h2>
@@ -254,7 +276,7 @@
 							</div><!--//link-mask-->
 						</div><!--//card-->
 					</div><!--//col-->
-					<div class="col-md-6 mb-5">	
+					<div class="col-md-6 mb-5">
 						<div class="card project-card">
 							<div class="row no-gutters">
 								<div class="col-12 col-xl-5 card-img-holder">
@@ -328,12 +350,12 @@
 					</div><!--//col-->
 				</div><!--//row-->
 				<div class="text-center py-3"><a href="{{ route('portifolio') }}" class="btn btn-primary"><i class="fas fa-arrow-alt-circle-right me-2"></i>View Portfolio</a></div>
-				
+
 			</div><!--//container-->
 		</section><!--//featured-section-->
-		
+
 		<div class="container"><hr></div>
-		
+
 		<section class="latest-blog-section p-3 p-lg-5">
 			<div class="container">
 				<h2 class="section-title font-weight-bold mb-5">Latest Blog Posts</h2>
@@ -345,7 +367,7 @@
 								<h5 class="card-title"><a class="theme-link" href="blog-post.html">Top 3 JavaScript Frameworks</a></h5>
 								<p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient...</p>
 								<p class="mb-0"><a class="text-link" href="blog-post.html">Read more &rarr;</a></p>
-								
+
 							</div>
 							<div class="card-footer">
 								<small class="text-muted">Published 2 days ago</small>
@@ -362,7 +384,7 @@
 							</div>
 							<div class="card-footer">
 								<small class="text-muted">Published a week ago</small>
-								
+
 							</div>
 						</div><!--//card-->
 					</div><!--//col-->
@@ -382,9 +404,9 @@
 				</div><!--//row-->
 				<div class="text-center py-3"><a href="{{ route('blog') }}" class="btn btn-primary"><i class="fas fa-arrow-alt-circle-right me-2"></i>View Blog</a></div>
 			</div><!--//container-->
-			
+
 		</section><!--//latest-blog-section-->
 
-	<!-- *****CONFIGURE STYLE (REMOVE ON YOUR PRODUCTION SITE)****** -->  
+	<!-- *****CONFIGURE STYLE (REMOVE ON YOUR PRODUCTION SITE)****** -->
 	<!--//configure-panel-->
 @endsection
