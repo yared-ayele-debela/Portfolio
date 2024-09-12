@@ -20,94 +20,35 @@
 <section class="blog-list px-3 py-5 p-md-5">
     <div class="container">
         <div class="row">
+            @foreach ($blog as $blogs)
             <div class="col-md-4 mb-3">
                 <div class="card blog-post-card">
-                    <img class="card-img-top" src="{{asset('fontend/assets/images/blog/blog-post-thumb-card-1.jpg')}}" alt="image">
+                    <img class="card-img-top"  src="{{ asset('/storage/blogs/'.$blogs->image) }}" alt="image">
                     <div class="card-body">
-                        <h5 class="card-title"><a class="theme-link" href="blog-post.html">Top 3 JavaScript Frameworks</a></h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient...</p>
-                        <p class="mb-0"><a class="text-link" href="blog-post.html">Read more &rarr;</a></p>
-                        
+                        <h5 class="card-title"><a class="theme-link" >{{ $blogs->title }}</a></h5>
+                        <p class="card-text">{{ $blogs->description }}</p>
+                        {{-- <p class="mb-0"><a class="text-link" href="blog-post.html">Read more &rarr;</a></p> --}}
+
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">Published 2 days ago</small>
+                        <small class="text-muted">Published {{ $blogs->created_at }}</small>
                     </div>
                 </div><!--//card-->
-            </div><!--//col-->
-            <div class="col-md-4 mb-3">
-                <div class="card blog-post-card">
-                    <img class="card-img-top" src="{{asset('fontend/assets/images/blog/blog-post-thumb-card-2.jpg')}}" alt="image">
-                    <div class="card-body">
-                        <h5 class="card-title"><a class="theme-link" href="blog-post.html">About Remote Working</a></h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient...</p>
-                        <p class="mb-0"><a class="text-link" href="blog-post.html">Read more &rarr;</a></p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Published a week ago</small>
-                        
-                    </div>
-                </div><!--//card-->
-            </div><!--//col-->
-            <div class="col-md-4 mb-3">
-                <div class="card blog-post-card">
-                    <img class="card-img-top" src="{{asset('fontend/assets/images/blog/blog-post-thumb-card-3.jpg')}}" alt="image">
-                    <div class="card-body">
-                        <h5 class="card-title"><a class="theme-link" href="blog-post.html">A Guide to Becoming a Full-Stack Developer</a></h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient...</p>
-                        <p class="mb-0"><a class="text-link" href="blog-post.html">Read more &rarr;</a></p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Published 3 weeks ago</small>
-                    </div>
-                </div><!--//card-->
-            </div><!--//col-->
-            <div class="col-md-4 mb-3">
-                <div class="card blog-post-card">
-                    <img class="card-img-top" src="{{asset('fontend/assets/images/blog/blog-post-thumb-card-4.jpg')}}" alt="image">
-                    <div class="card-body">
-                        <h5 class="card-title"><a class="theme-link" href="blog-post.html">High Performance JavaScript</a></h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient...</p>
-                        <p class="mb-0"><a class="text-link" href="blog-post.html">Read more &rarr;</a></p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Published 1 month ago</small>
-                    </div>
-                </div><!--//card-->
-            </div><!--//col-->
-            <div class="col-md-4 mb-3">
-                <div class="card blog-post-card">
-                    <img class="card-img-top" src="{{asset('fontend/assets/images/blog/blog-post-thumb-card-5.jpg')}}" alt="image">
-                    <div class="card-body">
-                        <h5 class="card-title"><a class="theme-link" href="blog-post.html">Learn React in 24 Hours</a></h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient...</p>
-                        <p class="mb-0"><a class="text-link" href="blog-post.html">Read more &rarr;</a></p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Published 1 month ago</small>
-                    </div>
-                </div><!--//card-->
-            </div><!--//col-->
-            <div class="col-md-4 mb-3">
-                <div class="card blog-post-card">
-                    <img class="card-img-top" src="{{asset('fontend/assets/images/blog/blog-post-thumb-card-6.jpg')}}" alt="image">
-                    <div class="card-body">
-                        <h5 class="card-title"><a class="theme-link" href="blog-post.html">How to Build Desktop Apps with HTML, CSS and JavaScript</a></h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient...</p>
-                        <p class="mb-0"><a class="text-link" href="blog-post.html">Read more &rarr;</a></p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Published 2 months ago</small>
-                    </div>
-                </div><!--//card-->
-            </div><!--//col-->
+            </div>
+            @endforeach
+            <div class="text-center">
+                {{ $blog->links('pagination::bootstrap-4') }}
+            </div>
+            <!--//col-->
+          <!--//col-->
         </div><!--//row-->
-        
-        
+
+
         <nav class="blog-nav nav nav-justified my-5">
           <a class="nav-link-prev nav-item nav-link d-none rounded-left" href="#">Previous<i class="arrow-prev fas fa-long-arrow-alt-left"></i></a>
           <a class="nav-link-next nav-item nav-link rounded" href="#">Next<i class="arrow-next fas fa-long-arrow-alt-right"></i></a>
         </nav>
-        
+
     </div>
 </section>
 @endsection

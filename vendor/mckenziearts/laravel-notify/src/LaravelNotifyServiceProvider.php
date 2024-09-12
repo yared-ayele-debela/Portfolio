@@ -5,44 +5,26 @@ namespace Mckenziearts\Notify;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
-class LaravelNotifyServiceProvider extends ServiceProvider
+final class LaravelNotifyServiceProvider extends ServiceProvider
 {
-    /**
-     * Perform post-registration booting of services.
-     *
-     * @return void
-     */
-    public function boot()
+    public function boot(): void
     {
         $this->registerBladeDirective();
         $this->registerPublishables();
-        $this->registerComponents();
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'notify');
-        $this->loadRoutesFrom(__DIR__.'/routes.php');
     }
 
-    /**
-     * Register any package services.
-     *
-     * @return void
-     */
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/notify.php', 'notify');
 
-        // Register the service the package provides.
         $this->app->singleton('notify', function ($app) {
             return $app->make(LaravelNotify::class);
         });
     }
 
-    /**
-     * Register Notify Blade.
-     *
-     * @retrun void
-     */
-    public function registerBladeDirective()
+    public function registerBladeDirective(): void
     {
         Blade::directive('notifyCss', function () {
             return '<?php echo notifyCss(); ?>';
@@ -53,23 +35,7 @@ class LaravelNotifyServiceProvider extends ServiceProvider
         });
     }
 
-    /**
-     *
-     * Register Notify Blade Component.
-     *
-     * @return void
-     */
-    public function registerComponents()
-    {
-        Blade::component(NotifyComponent::class, 'notify-messages');
-    }
-
-    /**
-     * Register Publishable files.
-     *
-     * @return void
-     */
-    public function registerPublishables()
+    public function registerPublishables(): void
     {
         $this->publishes([
             __DIR__.'/../public' => public_path('vendor/mckenziearts/laravel-notify'),
@@ -78,15 +44,5 @@ class LaravelNotifyServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/notify.php' => config_path('notify.php'),
         ], 'notify-config');
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return [];
     }
 }

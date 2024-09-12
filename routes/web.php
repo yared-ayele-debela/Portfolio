@@ -6,12 +6,16 @@ use App\Http\Controllers\FontendController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\AwardsController;
+use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EducationController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\SocailmediaController;
 use App\Http\Controllers\WorkExpController;
+use App\Http\Resources\BlogController;
 use App\Models\Project;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Rules\Role;
@@ -29,34 +33,21 @@ use Monolog\Handler\RotatingFileHandler;
 |
 */
 
-// Route::get('/', function () {
-//     return view('auth.login');
-// });
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('User.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+
 });
 
 Route::get('user/logout',[UserController::class,'logout'])->name('userlogout');
-//this routing is display the main dashboard
 Route::get('/maindashboard',[UserController::class,'maindashboard'])->name('portifolio');
 Route::get('/portifolio',[UserController::class,'User'])->name('portfolioDashboard');
-// this routing for display user profile
 Route::get('/userprofile',[UserController::class,'userprofile'])->name('userProfile');
 
-// this routing is for add user
-// Route::get('user/add',[UserController::class,'addUser'])->name('addUser');
-//this routing is for display all users
 Route::get('userr/allusers',[UserController::class,'allUsers'])->name('allUsers');
-
-// User Crud Operation
-
 // Route::post('user/store',[UserController::class,'store'])->name('storeuser');
 Route::get('user/{id}/edit',[UserController::class,'edit'])->name('edituser');
 Route::get('user/{id}/editprofile',[UserController::class,'editprofile'])->name('editprofile');
@@ -67,6 +58,7 @@ Route::put('users/{id}',[UserController::class,'updateprofile'])->name('updatepr
 Route::get('user/{id}',[UserController::class,'destory'])->name('deleteUser');
 Route::get('active/{id}',[UserController::class,'activeuser'])->name('activeuser');
 Route::get('inactive/{id}',[UserController::class,'inactiveuser'])->name('inactiveuser');
+
 //routing for categories
 
 
@@ -110,10 +102,15 @@ Route::get('contact',[FontendController::class,'contact'])->name('contact');
 Route::get('service',[FontendController::class,'service'])->name('service');
 Route::get('/',[FontendController::class,'index'])->name('myportfolio');
 
+// Route::get('pdfview',array('as'=>'pdfview','uses'=>'ItemController@pdfview'));
+
+Route::get('pdfview', [ItemController::class, 'pdfview'])->name('pdfview');
+
+Route::resource('blogs', BlogsController::class);
+
 Route::resource('education',EducationController::class);
 Route::resource('award', AwardsController::class);
 Route::resource('language', LanguageController::class);
 Route::resource('resumes', ResumeController::class);
 Route::resource('social_meda',SocailmediaController::class);
 Route::resource('work_experience',WorkExpController::class);
-

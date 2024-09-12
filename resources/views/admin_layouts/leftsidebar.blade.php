@@ -1,6 +1,6 @@
 <aside id="sidebar" class=" colored sidebar " >
   <ul class="sidebar-nav" id="sidebar-nav">
-     <li class="nav-item"> <a class="nav-link disabled" href=""> <i class="bi bi-grid"></i> <span>Dashboard</span> </a></li>
+     <li class="nav-item"> <a class="nav-link " href="{{ route('dashboard') }}"> <i class="bi bi-grid"></i> <span>Dashboard</span> </a></li>
 
      <li class="{{ request()->is('userr/allusers')?'nav-item active':'' }} {{ request()->is('user/add')?'nav-item active':''}}">
         <a class="nav-link" data-bs-target="#user-nav" data-bs-toggle="collapse" href="#"> <i class="bi bi-person-bounding-box  "></i><span>User Managements</span><i class="bi bi-chevron-down ms-auto"></i> </a>
@@ -9,6 +9,7 @@
            <li> <a href="{{ route('allUsers') }} " class="{{ request()->is('userr/allusers')? 'nav-link active':'' }}"> <i class="bi bi-circle"></i><span>Lists Of Users</span></a></li>
         </ul>
      </li>
+
      <li class="{{ request()->is('category/create')?'nav-item':'' }} {{ request()->is('category')?'nav-item':'' }}">
       <a class="nav-link" data-bs-target="#category-nav" data-bs-toggle="collapse" href="#"> <i class="bi bi-person-bounding-box  "></i><span>what can i do </span><i class="bi bi-chevron-down ms-auto"></i> </a>
       <ul id="category-nav" class="nav-content collapse {{ request()->is('category/create')?'show':'' }} {{ request()->is('category')?'show':'' }} " data-bs-parent="#sidebar-nav">
@@ -16,6 +17,14 @@
          <li> <a href="{{ route('category') }} " class="{{ request()->is('category')? 'nav-link active':'' }}"> <i class="bi bi-circle"></i><span>Lists Of what can i do</span></a></li>
       </ul>
      </li>
+
+     <li class="{{ request()->is('blogs/create')?'nav-item':'' }} {{ request()->is('blogs')?'nav-item':'' }}">
+        <a class="nav-link" data-bs-target="#blogs-nav" data-bs-toggle="collapse" href="#"> <i class="bi bi-person-bounding-box  "></i><span>Blogs Management </span><i class="bi bi-chevron-down ms-auto"></i> </a>
+        <ul id="blogs-nav" class="nav-content collapse {{ request()->is('blogs/create')?'show':'' }} {{ request()->is('blogs')?'show':'' }} " data-bs-parent="#sidebar-nav">
+           <li> <a href="{{ route('blogs.create') }}" class="{{ request()->is('blogs/create')? 'nav-link active':'' }}"> <i class=" bi bi-circle active "></i><span>Add Blog</span> </a></li>
+           <li> <a href="{{ route('blogs.index') }}" class="{{ request()->is('blogs')? 'nav-link active':'' }}"> <i class="bi bi-circle"></i><span>Lists of blogs</span></a></li>
+        </ul>
+       </li>
 
      <li class="{{ request()->is('service/create')?'nav-item active':'' }} {{ request()->is('service/all')?'nav-item active':'' }}">
       <a class="nav-link" data-bs-target="#service-nav" data-bs-toggle="collapse" href="#"> <i class="bi bi-person-bounding-box  "></i><span>Services Managements</span><i class="bi bi-chevron-down ms-auto"></i> </a>
@@ -41,10 +50,10 @@
      </li>
 
      <li class="{{ request()->is('resumes')?'nav-item active':'' }} {{ request()->is('resumes/create')?'nav-item active':'' }}">
-        <a class="nav-link" data-bs-target="#resumes-nav" data-bs-toggle="collapse" href="#"> <i class="bi bi-layout-text-window-reverse"></i><span>My resume data</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+        <a class="nav-link" data-bs-target="#resumes-nav" data-bs-toggle="collapse" href="#"> <i class="bi bi-layout-text-window-reverse"></i><span>My resume info</span><i class="bi bi-chevron-down ms-auto"></i> </a>
         <ul id="resumes-nav" class="nav-content collapse {{ request()->is('resumes')?'show':'' }} {{ request()->is('resumes/create')?'show':'' }} " data-bs-parent="#sidebar-nav">
-           <li> <a href="{{ route('resumes.create') }}" class="{{ request()->is('resumes/create')?'nav-link active':'' }}"> <i class="bi bi-circle"></i><span>Add resume data</span> </a></li>
-           <li> <a href="{{ route('resumes.index') }}" class="{{ request()->is('resumes')?'nav-link active':'' }}"> <i class="bi bi-circle"></i><span>All resume data</span> </a></li>
+           <li> <a href="{{ route('resumes.create') }}" class="{{ request()->is('resumes/create')?'nav-link active':'' }}"> <i class="bi bi-circle"></i><span>Add resume info</span> </a></li>
+           <li> <a href="{{ route('resumes.index') }}" class="{{ request()->is('resumes')?'nav-link active':'' }}"> <i class="bi bi-circle"></i><span>All resume info</span> </a></li>
         </ul>
      </li>
      <li class="{{ request()->is('work_experience')?'nav-item active':'' }} {{ request()->is('work_experience/create')?'nav-item active':'' }}">

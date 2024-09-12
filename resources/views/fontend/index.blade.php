@@ -16,7 +16,7 @@
                             {!!$resume->description !!}
                         </div><!--//bio-->
                         <div class="mb-4">
-                            <a class="btn btn-primary me-2 mb-3" href="{{ route('portifolio') }}"><i class="fas fa-arrow-alt-circle-right me-2"></i><span class="d-none d-md-inline">View</span> Portfolio</a>
+                            <a class="btn btn-primary me-2 mb-3" href="javascript:void();"><i class="fas fa-arrow-alt-circle-right me-2"></i><span class="d-none d-md-inline">View</span> Portfolio</a>
                             <a class="btn btn-secondary mb-3" href="{{ route('resume') }}"><i class="fas fa-file-alt me-2"></i><span class="d-none d-md-inline">View</span> Resume</a>
                         </div>
                     </div>

@@ -74,7 +74,7 @@ class CategoryController extends Controller
                 //file name to store
                 $fileNameToStore=$fileName.'_'.time().'.'.$extension;
                 //upload cover_image
-                $path=$request->file('cover_image')->storeAs('public/categorys',$fileNameToStore);
+                $path=$request->file('cover_image')->storeAs('public/category',$fileNameToStore);
 
                 $category->cover_image=$fileNameToStore;
 

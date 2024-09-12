@@ -14,212 +14,27 @@
 </section>
 <section class="projects-list px-3 py-5 p-md-5">
     <div class="container">
-        <div class="text-center">
-            {{-- {{ $resume->fullname}} --}}
-            <ul id="filters" class="filters mb-5 mx-auto   ps-0">
-                <li class="type active mb-3 mb-lg-0" data-filter="*">All</li>
-                <li class="type  mb-3 mb-lg-0" data-filter=".webapp">We App</li>
-                <li class="type  mb-3 mb-lg-0" data-filter=".mobileapp">Mobile App</li>
-                <li class="type  mb-3 mb-lg-0" data-filter=".frontend">Frontend</li>
-                <li class="type  mb-3 mb-lg-0" data-filter=".backend">Backend</li>
-            </ul><!--//filters-->
+             <div class="row">
+            @foreach ($projects as $project)
+                <div class="col-md-4 d-flex pb-2 pt-2">
+                    <div class="card flex-fill" style="border:none;-webkit-box-shadow: 1px 0px 8px -1px rgba(206, 201, 201, 0.75);
+                   -moz-box-shadow: 1px 0px 8px -1px rgba(143, 137, 137, 0.75);
+                   box-shadow: 1px 0px 8px -1px rgba(218, 217, 217, 0.75);">
+                     <div class="row no-gutters">
+                       <img src="{{ asset('/storage/projects/'.$project->cover_image) }}" style="width: 100%; height:260px;" alt="">
+                        <div class="card-body d-flex flex-column">
+                           <h5 class="card-title">{{ $project->title }}</h5>
+                           <p class="card-text">{!! $project->description !!}</p>
+                           <p class="card-text">Published: {{ $project->created_at }}</p>
+                         </div>
+                     </div>
+                   </div>
+                 </div><!--//card-->
+            @endforeach
+              <div class="text-center">
+                {{ $projects->links('pagination::bootstrap-4') }}
+              </div>
         </div>
-
-        <div class="project-cards row isotope">
-            <div class="isotope-item col-md-6 mb-5 mobileapp frontend">
-                <div class="card project-card">
-                    <div class="row">
-                        <div class="col-12 col-xl-5 card-img-holder">
-                            <img src="{{asset('fontend/assets/images/project/project-1.jpg')}}" class="card-img" alt="image">
-                        </div>
-                        <div class="col-12 col-xl-7">
-                            <div class="card-body">
-                                <h5 class="card-title"><a href="project.html" class="theme-link">Project Heading</a></h5>
-                                <p class="card-text">Project intro lorem ipsum dolor sit amet, consectetuer adipiscing elit. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
-                                <p class="card-text"><small class="text-muted">Client: Google</small></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="link-mask">
-                        <a class="link-mask-link" href="project.html"></a>
-                        <div class="link-mask-text">
-                            <a class="btn btn-secondary" href="project.html">
-                                <i class="fas fa-eye me-2"></i>View Case Study
-                            </a>
-                        </div>
-                    </div><!--//link-mask-->
-                </div><!--//card-->
-            </div><!--//col-->
-            <div class="isotope-item col-md-6 mb-5 webapp frontend">
-                <div class="card project-card">
-                    <div class="row">
-                        <div class="col-12 col-xl-5 card-img-holder">
-                            <img src="{{asset('fontend/assets/images/project/project-2.jpg')}}" class="card-img" alt="image">
-                        </div>
-                        <div class="col-12 col-xl-7">
-                            <div class="card-body">
-                                <h5 class="card-title"><a href="project.html" class="theme-link">Project Heading</a></h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
-                                <p class="card-text"><small class="text-muted">Client: Dropbox</small></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="link-mask">
-                        <a class="link-mask-link" href="project.html"></a>
-                        <div class="link-mask-text">
-                            <a class="btn btn-secondary" href="project.html">
-                                <i class="fas fa-eye me-2"></i>View Case Study
-                            </a>
-                        </div>
-                    </div><!--//link-mask-->
-                </div><!--//card-->
-            </div><!--//col-->
-            <div class="isotope-item col-md-6 mb-5 mobileapp">
-                <div class="card project-card">
-                    <div class="row">
-                        <div class="col-12 col-xl-5 card-img-holder">
-                            <img src="{{asset('fontend/assets/images/project/project-3.jpg')}}" class="card-img" alt="image">
-                        </div>
-                        <div class="col-12 col-xl-7">
-                            <div class="card-body">
-                                <h5 class="card-title"><a href="project.html" class="theme-link">Project Heading</a></h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
-                                <p class="card-text"><small class="text-muted">Client: Google</small></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="link-mask">
-                        <a class="link-mask-link" href="project.html"></a>
-                        <div class="link-mask-text">
-                            <a class="btn btn-secondary" href="project.html">
-                                <i class="fas fa-eye me-2"></i>View Case Study
-                            </a>
-                        </div>
-                    </div><!--//link-mask-->
-                </div><!--//card-->
-            </div><!--//col-->
-            <div class="isotope-item col-md-6 mb-5 webapp backend">
-                <div class="card project-card">
-                    <div class="row">
-                        <div class="col-12 col-xl-5 card-img-holder">
-                            <img src="{{asset('fontend/assets/images/project/project-4.jpg')}}" class="card-img" alt="image">
-                        </div>
-                        <div class="col-12 col-xl-7">
-                            <div class="card-body">
-                                <h5 class="card-title"><a href="project.html" class="theme-link">Project Heading</a></h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
-                                <p class="card-text"><small class="text-muted">Client: Startup Hub</small></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="link-mask">
-                        <a class="link-mask-link" href="project.html"></a>
-                        <div class="link-mask-text">
-                            <a class="btn btn-secondary" href="project.html">
-                                <i class="fas fa-eye me-2"></i>View Case Study
-                            </a>
-                        </div>
-                    </div><!--//link-mask-->
-                </div><!--//card-->
-            </div><!--//col-->
-            <div class="isotope-item col-md-6 mb-5 mobileapp frontend">
-                <div class="card project-card">
-                    <div class="row">
-                        <div class="col-12 col-xl-5 card-img-holder">
-                            <img src="{{asset('fontend/assets/images/project/project-5.jpg')}}" class="card-img" alt="image">
-                        </div>
-                        <div class="col-12 col-xl-7">
-                            <div class="card-body">
-                                <h5 class="card-title"><a href="project.html" class="theme-link">Project Heading</a></h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
-                                <p class="card-text"><small class="text-muted">Client: SalesForce</small></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="link-mask">
-                        <a class="link-mask-link" href="project.html"></a>
-                        <div class="link-mask-text">
-                            <a class="btn btn-secondary" href="project.html">
-                                <i class="fas fa-eye me-2"></i>View Case Study
-                            </a>
-                        </div>
-                    </div><!--//link-mask-->
-                </div><!--//card-->
-            </div><!--//col-->
-            <div class="isotope-item col-md-6 mb-5 webapp backend">
-                <div class="card project-card">
-                    <div class="row">
-                        <div class="col-12 col-xl-5 card-img-holder">
-                            <img src="{{asset('fontend/assets/images/project/project-6.jpg')}}" class="card-img" alt="image">
-                        </div>
-                        <div class="col-12 col-xl-7">
-                            <div class="card-body">
-                                <h5 class="card-title"><a href="project.html" class="theme-link">Project Heading</a></h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
-                                <p class="card-text"><small class="text-muted">Client: Uber</small></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="link-mask">
-                        <a class="link-mask-link" href="project.html"></a>
-                        <div class="link-mask-text">
-                            <a class="btn btn-secondary" href="project.html">
-                                <i class="fas fa-eye me-2"></i>View Case Study
-                            </a>
-                        </div>
-                    </div><!--//link-mask-->
-                </div><!--//card-->
-            </div><!--//col-->
-            <div class="isotope-item col-md-6 mb-5 webapp frontend backend">
-                <div class="card project-card">
-                    <div class="row">
-                        <div class="col-12 col-xl-5 card-img-holder">
-                            <img src="{{asset('fontend/assets/images/project/project-7.jpg')}}" class="card-img" alt="image">
-                        </div>
-                        <div class="col-12 col-xl-7">
-                            <div class="card-body">
-                                <h5 class="card-title"><a href="project.html" class="theme-link">Project Heading</a></h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
-                                <p class="card-text"><small class="text-muted">Client: Lyft</small></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="link-mask">
-                        <a class="link-mask-link" href="project.html"></a>
-                        <div class="link-mask-text">
-                            <a class="btn btn-secondary" href="project.html">
-                                <i class="fas fa-eye me-2"></i>View Case Study
-                            </a>
-                        </div>
-                    </div><!--//link-mask-->
-                </div><!--//card-->
-            </div><!--//col-->
-            <div class="isotope-item col-md-6 mb-5 webapp frontend">
-                <div class="card project-card">
-                    <div class="row">
-                        <div class="col-12 col-xl-5 card-img-holder">
-                            <img src="{{asset('fontend/assets/images/project/project-8.jpg')}}" class="card-img" alt="image">
-                        </div>
-                        <div class="col-12 col-xl-7">
-                            <div class="card-body">
-                                <h5 class="card-title"><a href="project.html" class="theme-link">Project Heading</a></h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
-                                <p class="card-text"><small class="text-muted">Client: GitLab</small></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="link-mask">
-                        <a class="link-mask-link" href="project.html"></a>
-                        <div class="link-mask-text">
-                            <a class="btn btn-secondary" href="project.html">
-                                <i class="fas fa-eye me-2"></i>View Case Study
-                            </a>
-                        </div>
-                    </div><!--//link-mask-->
-                </div><!--//card-->
-            </div><!--//col-->
-        </div><!--//row-->
-
     </div>
 </section>
 @endsection

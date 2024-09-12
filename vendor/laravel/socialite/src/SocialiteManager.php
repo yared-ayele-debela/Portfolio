@@ -12,12 +12,25 @@ use Laravel\Socialite\Two\FacebookProvider;
 use Laravel\Socialite\Two\GithubProvider;
 use Laravel\Socialite\Two\GitlabProvider;
 use Laravel\Socialite\Two\GoogleProvider;
+use Laravel\Socialite\Two\LinkedInOpenIdProvider;
 use Laravel\Socialite\Two\LinkedInProvider;
+use Laravel\Socialite\Two\SlackOpenIdProvider;
+use Laravel\Socialite\Two\SlackProvider;
 use Laravel\Socialite\Two\TwitterProvider as TwitterOAuth2Provider;
+use Laravel\Socialite\Two\XProvider;
 use League\OAuth1\Client\Server\Twitter as TwitterServer;
 
 class SocialiteManager extends Manager implements Contracts\Factory
 {
+    /**
+     * The application instance.
+     *
+     * @var \Illuminate\Contracts\Foundation\Application
+     *
+     * @deprecated Will be removed in a future Socialite release.
+     */
+    protected $app;
+
     /**
      * Get a driver instance.
      *
@@ -81,7 +94,21 @@ class SocialiteManager extends Manager implements Contracts\Factory
         $config = $this->config->get('services.linkedin');
 
         return $this->buildProvider(
-          LinkedInProvider::class, $config
+            LinkedInProvider::class, $config
+        );
+    }
+
+    /**
+     * Create an instance of the specified driver.
+     *
+     * @return \Laravel\Socialite\Two\AbstractProvider
+     */
+    protected function createLinkedinOpenidDriver()
+    {
+        $config = $this->config->get('services.linkedin-openid');
+
+        return $this->buildProvider(
+            LinkedInOpenIdProvider::class, $config
         );
     }
 
@@ -95,7 +122,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
         $config = $this->config->get('services.bitbucket');
 
         return $this->buildProvider(
-          BitbucketProvider::class, $config
+            BitbucketProvider::class, $config
         );
     }
 
@@ -146,6 +173,48 @@ class SocialiteManager extends Manager implements Contracts\Factory
     }
 
     /**
+     * Create an instance of the specified driver.
+     *
+     * @return \Laravel\Socialite\Two\AbstractProvider
+     */
+    protected function createXDriver()
+    {
+        $config = $this->config->get('services.x') ?? $this->config->get('services.x-oauth-2');
+
+        return $this->buildProvider(
+            XProvider::class, $config
+        );
+    }
+
+    /**
+     * Create an instance of the specified driver.
+     *
+     * @return \Laravel\Socialite\Two\AbstractProvider
+     */
+    protected function createSlackDriver()
+    {
+        $config = $this->config->get('services.slack');
+
+        return $this->buildProvider(
+            SlackProvider::class, $config
+        );
+    }
+
+    /**
+     * Create an instance of the specified driver.
+     *
+     * @return \Laravel\Socialite\Two\AbstractProvider
+     */
+    protected function createSlackOpenidDriver()
+    {
+        $config = $this->config->get('services.slack-openid');
+
+        return $this->buildProvider(
+            SlackOpenIdProvider::class, $config
+        );
+    }
+
+    /**
      * Build an OAuth 2 provider instance.
      *
      * @param  string  $provider
@@ -186,7 +255,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
     {
         $redirect = value($config['redirect']);
 
-        return Str::startsWith($redirect, '/')
+        return Str::startsWith($redirect ?? '', '/')
                     ? $this->container->make('url')->to($redirect)
                     : $redirect;
     }
@@ -213,6 +282,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
     {
         $this->app = $container;
         $this->container = $container;
+        $this->config = $container->make('config');
 
         return $this;
     }

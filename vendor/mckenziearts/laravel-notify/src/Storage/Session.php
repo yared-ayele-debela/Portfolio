@@ -4,27 +4,16 @@ namespace Mckenziearts\Notify\Storage;
 
 use Illuminate\Session\Store;
 
-class Session
+final class Session
 {
-    /**
-     * Session storage.
-     *
-     * @var \Illuminate\Session\Store
-     */
-    protected $session;
+    protected Store $session;
 
     public function __construct(Store $session)
     {
         $this->session = $session;
     }
 
-    /**
-     * Set a session key and value.
-     *
-     * @param  mixed $key
-     * @param  string $data
-     */
-    public function flash($key, $data = null)
+    public function flash(string $key, array $data = []): void
     {
         $this->session->flash($key, $data);
     }

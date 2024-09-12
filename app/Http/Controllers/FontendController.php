@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\award;
+use App\Models\blog;
 use App\Models\education;
 use App\Models\language;
 use App\Models\Project;
@@ -11,6 +12,7 @@ use App\Models\Skill;
 use App\Models\socail_media;
 use App\Models\work_exp;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FontendController extends Controller
 {
@@ -21,15 +23,14 @@ class FontendController extends Controller
         return view('admin_layouts.leftsidebar',compact('resume','social_media'));
     }
     public function index(){
-
         $resume=resume::first();
         return view('fontend.index',compact('resume'));
     }
 
     public function blog(){
+        $blog=DB::table('blogs')->paginate(6);
         $resume=resume::first();
-
-        return view('fontend.pages.blog',compact('resume'));
+        return view('fontend.pages.blog',compact('resume','blog'));
     }
     public function resume(){
         $resume=resume::first();
@@ -54,7 +55,9 @@ class FontendController extends Controller
     }
     public function portfolio(){
 
+        $projects = Project::with('images')->paginate(6);
+
         $resume=resume::first();
-        return view('fontend.pages.portfolio',compact('resume'));
+        return view('fontend.pages.portfolio',compact('resume','projects'));
     }
 }

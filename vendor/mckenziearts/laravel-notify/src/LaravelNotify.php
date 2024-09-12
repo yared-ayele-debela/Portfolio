@@ -6,32 +6,15 @@ use Exception;
 use Mckenziearts\Notify\Exceptions\MissingPresetNotificationException;
 use Mckenziearts\Notify\Storage\Session;
 
-class LaravelNotify
+final class LaravelNotify
 {
-    /**
-     * Session storage.
-     *
-     * @var \Mckenziearts\Notify\Storage\Session
-     */
-    protected $session;
+    protected Session $session;
 
-    /**
-     * Create a new notify instance.
-     *
-     * @param  Session  $session
-     */
     public function __construct(Session $session)
     {
         $this->session = $session;
     }
 
-    /**
-     * Flash an information message.
-     *
-     * @param  string  $message
-     * @param  string|null  $title
-     * @return $this
-     */
     public function info(string $message, string $title = null): self
     {
         $this->flash($message, 'info', 'flaticon-exclamation-1', 'toast', $title);
@@ -39,13 +22,6 @@ class LaravelNotify
         return $this;
     }
 
-    /**
-     * Flash a success message.
-     *
-     * @param  string  $message
-     * @param  string|null  $title
-     * @return $this
-     */
     public function success(string $message, string $title = null): self
     {
         $this->flash($message, 'success', 'flaticon2-check-mark', 'toast', $title);
@@ -53,13 +29,6 @@ class LaravelNotify
         return $this;
     }
 
-    /**
-     * Flash an error message.
-     *
-     * @param  string  $message
-     * @param  string|null  $title
-     * @return $this
-     */
     public function error(string $message, string $title = null): self
     {
         $this->flash($message, 'error', 'flaticon2-delete', 'toast', $title);
@@ -67,13 +36,6 @@ class LaravelNotify
         return $this;
     }
 
-    /**
-     * Flash a warning message.
-     *
-     * @param  string  $message
-     * @param  string|null  $title
-     * @return $this
-     */
     public function warning(string $message, string $title = null): self
     {
         $this->flash($message, 'warning', 'flaticon-warning-sign', 'toast', $title);
@@ -81,14 +43,6 @@ class LaravelNotify
         return $this;
     }
 
-    /**
-     * Return a Connect Notification.
-     *
-     * @param  string  $type
-     * @param  string  $title
-     * @param  string  $message
-     * @return $this
-     */
     public function connect(string $type, string $title, string $message): self
     {
         $icon = ($type === 'success') ? 'flaticon-like' : 'flaticon-cancel';
@@ -98,13 +52,6 @@ class LaravelNotify
         return $this;
     }
 
-    /**
-     * Return a smiley notify.
-     *
-     * @param  string  $type
-     * @param  string  $message
-     * @return $this
-     */
     public function smiley(string $type, string $message): self
     {
         $icon = ($type === 'success') ? '👍' : '🙅🏽‍♂';
@@ -114,13 +61,6 @@ class LaravelNotify
         return $this;
     }
 
-    /**
-     * Return a smiley notify.
-     *
-     * @param  string  $type
-     * @param  string  $message
-     * @return $this
-     */
     public function emotify(string $type, string $message): self
     {
         $this->flash($message, $type, null, 'emotify');
@@ -128,16 +68,10 @@ class LaravelNotify
         return $this;
     }
 
-    /**
-     * Return a drake notify.
-     *
-     * @param  string  $type
-     * @return $this
-     */
     public function drake(string $type): self
     {
         $icon = ($type === 'success') ? 'flaticon2-check-mark' : 'flaticon2-cross';
-        $message = ($type === 'success') ? 'Success' : 'Try Again';
+        $message = ($type === 'success') ? __('Success') : __('Try Again');
 
         $this->flash($message, $type, $icon, 'drake');
 
@@ -155,9 +89,6 @@ class LaravelNotify
      *
      *          ['message' => 'Your new message here!']
      *
-     * @param  string  $presetName
-     * @param  array  $overrideValues
-     * @return LaravelNotify
      * @throws Exception
      */
     public function preset(string $presetName, array $overrideValues = []): self
@@ -179,46 +110,25 @@ class LaravelNotify
         return $this;
     }
 
-    /**
-     * Flash a message.
-     *
-     * @param  string  $message
-     * @param  string|null  $type
-     * @param  string|null  $icon
-     * @param  string|null  $model
-     * @param  string|null  $title
-     *
-     * @return void
-     */
-    public function flash($message, $type = null, $icon = null, string $model = null, string $title = null)
+    public function flash(string $message, string $type = null, string $icon = null, string $model = null, string $title = null): void
     {
         $notifications = [
             'message' => $message,
-            'type'    => $type,
-            'icon'    => $icon,
-            'model'   => $model,
-            'title'   => $title,
+            'type' => $type,
+            'icon' => $icon,
+            'model' => $model,
+            'title' => $title,
         ];
 
         $this->session->flash('notify', $notifications);
     }
 
-    /**
-     * Get the stored message.
-     *
-     * @return string
-     */
-    public function message()
+    public function message(): string
     {
         return $this->session->get('notify.message');
     }
 
-    /**
-     * Get the stored type.
-     *
-     * @return string
-     */
-    public function type()
+    public function type(): string
     {
         return $this->session->get('notify.type');
     }

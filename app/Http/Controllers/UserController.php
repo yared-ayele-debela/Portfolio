@@ -60,7 +60,7 @@ class UserController extends Controller
     }
     public function logout(){
         Auth::logout();
-        return redirect()->view('User.allluser');
+        return redirect()->route('login');
     }
 
     public function edit($id){

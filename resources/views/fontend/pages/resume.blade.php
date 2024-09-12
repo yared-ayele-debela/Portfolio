@@ -3,7 +3,7 @@
 <section class="cta-section theme-bg-light py-5">
     <div class="container text-center single-col-max-width">
         <h2 class="heading mb-3">Online Resume</h2>
-        <a class="btn btn-primary" href="https://themes.3rdwavemedia.com/resources/sketch-template/resume-sketch-sketch-resume-template-for-software-developers/" target="_blank"><i class="fas fa-file-pdf me-2"></i>Download PDF Version</a>
+        {{-- <a class="btn btn-primary" href="{{ route('pdfview',['download'=>'pdf']) }}" target="_blank"><i class="fas fa-file-pdf me-2"></i>Download PDF </a> --}}
     </div><!--//container-->
 </section>
 <div class="container resume-container px-3 px-lg-5">
@@ -48,12 +48,6 @@
                 <div class="resume-main col-12 col-lg-8 col-xl-9   pe-0   pe-lg-5">
                     <section class="work-section py-3">
                         <h3 class="text-uppercase resume-section-heading mb-4">Work Experiences</h3>
-                        <div class="item mb-3">
-                            <div class="item-heading row align-items-center mb-2">
-                                <h4 class="item-title col-12 col-md-6 col-lg-8 mb-2 mb-md-0">Senior Software Engineer</h4>
-                                <div class="item-meta col-12 col-md-6 col-lg-4 text-muted text-start text-md-end">Google | 2019 - Present</div>
-
-                            </div>
 
                         @foreach ($work_exp as $exp )<!--//item-->
                         <div class="item mb-3">

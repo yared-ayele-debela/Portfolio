@@ -25,13 +25,14 @@
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
       <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
       <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-
+<!-- Option 1: Include in HTML -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
    </head>
    <body>
 
     @include('admin_layouts.header')
     @include('admin_layouts.leftsidebar')
-    <main id="main" class="main" style="background-color:rgb(225, 226, 227)">
+    <main id="main" class="main" style="background-color:rgb(255, 255, 255)">
     @yield('dashboard')
     </main>
     @include('admin_layouts.footer')

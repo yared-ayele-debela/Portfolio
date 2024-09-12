@@ -8,14 +8,14 @@
             <div id="navigation" class="collapse navbar-collapse flex-column" >
                 <div class="profile-section pt-3 pt-lg-0">
                     <img class=" shadow-lg border-2 profile-image mb-3 rounded-circle mx-auto" style="height:160px;" src="{{ asset('/storage/resume/'.$resume->image) }}" alt="image" >
-                           <p style="color: rgb(29, 29, 42);"><b>{{ $resume->fullname }}</b></p>
+                           <p style="color: rgb(248, 248, 248);"><b>{{ $resume->fullname }}</b></p>
                     <div class="bio mb-3" style="color:rgb(236, 233, 233)">Hi, {{ $resume->about_me }}</div><!--//bio-->
                     <ul class="social-list list-inline py-2 mx-auto">
-                        <li class="list-inline-item"><a href="https://www.twitter.com"><i class="fab fa-twitter fa-fw"></i></a></li>
-                        <li class="list-inline-item"><a href="https://www.linkedin.com/in/yared-ayele"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
-                        <li class="list-inline-item"><a href="https://github.com/Yared11000010"><i class="fab fa-github-alt fa-fw"></i></a></li>
-                        <li class="list-inline-item"><a href="https://stackoverflow.com"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
-                        <li class="list-inline-item"><a href="https://codepen.io/Yared-Ayele"><i class="fab fa-codepen fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a href="https://www.linkedin.com/in/yared-ayele-debela" target="_blank"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a href="https://github.com/Yared11000010" target="_blank"><i class="fab fa-github-alt fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a href="https://stackoverflow.com" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a href="https://codepen.io/Yared-Ayele" target="_blank"><i class="fab fa-codepen fa-fw"></i></a></li>
                     </ul><!--//social-list-->
                     <hr>
                 </div><!--//profile-section-->
