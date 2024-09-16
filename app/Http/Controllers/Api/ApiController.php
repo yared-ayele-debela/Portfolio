@@ -7,8 +7,10 @@ use App\Models\award;
 use App\Models\blog;
 use App\Models\Category;
 use App\Models\education;
+use App\Models\Image;
 use App\Models\language;
 use App\Models\Project;
+use App\Models\ProjectCategory;
 use App\Models\resume;
 use App\Models\Service;
 use App\Models\Skill;
@@ -23,10 +25,8 @@ class ApiController extends Controller
 {
     public function social_media(){
         $social_media=socail_media::all();
-        $data=[
-            'social_media'=>$social_media
-        ];
-        return response()->json($data,'200');
+
+        return response()->json($social_media,'200');
     }
     public function service(){
         $services=Category::all();
@@ -34,11 +34,9 @@ class ApiController extends Controller
     }
 
     public function blog(){
-        $blog=DB::table('blogs')->paginate(6);
-        $data=[
-            'blog'=>$blog
-        ];
-        return response()->json($data,'200');
+        $blog=DB::table('blogs')->get();
+
+        return response()->json($blog,'200');
     }
 
     public function blog_detail($id){
@@ -80,10 +78,21 @@ class ApiController extends Controller
     }
 
     public function projeccts(){
-
         $projects = Project::with('images')->get();
         return response()->json($projects,'200');
     }
+    public function project_category(){
+        $project_category=ProjectCategory::all();
+
+        return response()->json($project_category,'200');
+    }
+
+    public function project_detail($id){
+        $project=Project::with('images')->findOrFail($id);
+
+        return response()->json($project,'200');
+    }
+
 
     public function awards(){
         $awards=award::all();

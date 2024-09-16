@@ -106,7 +106,6 @@ class SocailmediaController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required',
-            'icon' => 'required',
             'link' => 'required',
         ]);
 

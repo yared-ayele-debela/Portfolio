@@ -11,7 +11,7 @@
   </div>
   <section class="section">
      <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
            <div class="card">
               <div class="card-body">
                  <ul class="nav pb-5 nav-tabs align-items-end card-header-tabs w-100">
@@ -25,10 +25,25 @@
                         <form method="POST"  class="row" action="{{ route('update_project') }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            <input type="hidden" value="{{ $project->id }}" name="id">
-                            <div class="form-group col-lg-6">
-                                <label for="title">Title:</label>
-                                <input type="text" class="form-control" value="{{ $project->title }}" name="title" id="title">
+
+                            <div class="row">
+                                <div class="col">
+                                    <input type="hidden" value="{{ $project->id }}" name="id">
+                                    <div class="form-group">
+                                        <label for="title">Title:</label>
+                                        <input type="text" class="form-control" value="{{ $project->title }}" name="title" id="title">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="category">Category</label>
+                                        <select class="form-control" name="category" id="category">
+                                          @foreach ($project_category as $cat)
+                                          <option @if($project->category===$cat->name) selected @endif value="{{ $cat->name }}">{{ $cat->name }}</option>
+                                          @endforeach
+                                        </select>
+                                      </div>
+                                </div>
                             </div>
 
                             <div class="col-sm-6 form-group">
@@ -67,7 +82,7 @@
                                 <label for="end_date">End Date:</label>
                                 <input type="text" class="form-control" value="{{ $project->end_date }}" name="end_date" id="end_date">
                             </div>
-                            <div class="form-group col-lg-6" >
+                            <div class="form-group col-lg-12" >
                                 <label for="description">Description:</label>
                                 <div class="form-group">
                                     <textarea class="form-control" name="description" id="summernote">

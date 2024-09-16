@@ -1,0 +1,18 @@
+<svg id='Portfolio_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
+<g transform="matrix(0.83 0 0 0.83 12 12)" >
+<g style="" >
+<g transform="matrix(1 0 0 1 0 0.5)" >
+<path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 0.35;" transform=" translate(-12, -12.5)" d="M 19 4 L 5 4 C 3.343 4 2 5.343 2 7 L 2 12 L 2 18 C 2 19.657 3.343 21 5 21 L 19 21 C 20.657 21 22 19.657 22 18 L 22 12 L 22 7 C 22 5.343 20.657 4 19 4 z" stroke-linecap="round" />
+</g>
+<g transform="matrix(1 0 0 1 0 -9)" >
+<path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" translate(-12, -3)" d="M 13 2 C 12.634 2 11.366 2 11 2 C 9.895 2 9 2.895 9 4 L 15 4 C 15 2.895 14.105 2 13 2 z" stroke-linecap="round" />
+</g>
+<g transform="matrix(1 0 0 1 0 -1.5)" >
+<circle style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" cx="0" cy="0" r="2.5" />
+</g>
+<g transform="matrix(1 0 0 1 0 4)" >
+<path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" translate(-12, -16)" d="M 14.5 14 L 9.5 14 C 8.395 14 7.5 14.895 7.5 16 C 7.5 17.105 8.395 18 9.5 18 L 14.5 18 C 15.605 18 16.5 17.105 16.5 16 C 16.5 14.895 15.605 14 14.5 14 z" stroke-linecap="round" />
+</g>
+</g>
+</g>
+</svg>
