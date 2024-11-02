@@ -1,52 +1,48 @@
 /* eslint-disable react/no-unescaped-entities */
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import Testimonial from "./Testimonial";
 import Service from "./Service";
 import axios from "axios";
 
-const servicesData = [
-  {
-    icon: "/images/icon-design.svg",
-    title: "Web Design",
-    description: "Creating modern, responsive, and user-centric designs using Bootstrap and other front-end technologies."
-  },
-  {
-    icon: "/images/icon-dev.svg",
-    title: "Web Development",
-    description: "Full-stack development with PHP, Laravel, jQuery, and MERN stack for high-quality, scalable web applications."
-  },
-  {
-    icon: "/images/developing.png",
-    title: "Backend Development",
-    description: "Building robust backend solutions with PHP, Laravel, and Node.js for seamless API integration and efficient data management."
-  },
-  {
-    icon: "/images/full-stack.png",
-    title: "Full-Stack Development",
-    description: "Developing complete web solutions, from front-end interfaces to back-end systems, using technologies like PHP, Laravel, and the MERN stack."
-  }
-];
-
-
-
 const About = () => {
-
-  const [user, setUser] = useState([]);
-  const [services, setService] = useState([]);
-
-  useEffect(() => {
-    axios.get('https://laravel-api.yaredayele.com/api/resume')
-      .then(response => setUser(response.data))
-      .catch(error => console.error('Error fetching user:', error));
-    axios.get('https://laravel-api.yaredayele.com/api/service')
-      .then(response => setService(response.data))
-      .catch(error => console.error('Error fetching user:', error));
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : {};
   });
 
-  return (
-    <article className="about  active" data-page="about">
+  const [services, setService] = useState(() => {
+    const savedServices = localStorage.getItem('services');
+    return savedServices ? JSON.parse(savedServices) : [];
+  });
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [userResponse, servicesResponse] = await Promise.all([
+          axios.get('https://laravel-api.yaredayele.com/api/resume'),
+          axios.get('https://laravel-api.yaredayele.com/api/service'),
+        ]);
+
+        setUser(userResponse.data);
+        setService(servicesResponse.data);
+
+        // Save to localStorage
+        localStorage.setItem('user', JSON.stringify(userResponse.data));
+        localStorage.setItem('services', JSON.stringify(servicesResponse.data));
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    // Fetch data only if user or services data is empty
+    if (!user.about_me || services.length === 0) {
+      fetchData();
+    }
+  }, [user, services]);
+
+  return (
+    <article className="about active" data-page="about">
       <header>
         <h2 className="h2 article-title">About me</h2>
       </header>
@@ -58,24 +54,20 @@ const About = () => {
       </section>
 
       <section className="service">
-
-        <h3 className="h3 service-title">What i'm doing</h3>
-
+        <h3 className="h3 service-title">What I'm doing</h3>
         <ul className="service-list">
-          {services.map((service, index) => (
+          {services.map((service) => (
             <Service
               key={service.id}
-              icon=  {`https://laravel-api.yaredayele.com/storage/category/${service.cover_image}`}
+              icon={`https://laravel-api.yaredayele.com/storage/category/${service.cover_image}`}
               title={service.name}
               description={service.description}
             />
           ))}
-
         </ul>
-
       </section>
     </article>
-  )
-}
+  );
+};
 
-export default About
+export default About;

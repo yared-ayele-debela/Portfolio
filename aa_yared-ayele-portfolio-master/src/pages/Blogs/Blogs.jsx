@@ -1,27 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import BlogPost from './BlogPost';
-import './Blogs.css'
+import './Blogs.css';
 import axios from 'axios';
 
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(4); 
+  const [postsPerPage] = useState(4);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('https://laravel-api.yaredayele.com/api/blog')
-    .then(response => {
-      setBlogs(response.data);
-      setFilteredProjects(response.data);
-    })
-    .catch(error => console.error('Error fetching user:', error));
-  });
+    const fetchBlogs = async () => {
+      // Check localStorage for cached blog data
+      const cachedBlogs = localStorage.getItem('blogs');
+      if (cachedBlogs) {
+        setBlogs(JSON.parse(cachedBlogs));
+        setLoading(false); // No need to fetch again, just set loading to false
+        return;
+      }
 
+      try {
+        const response = await axios.get('https://laravel-api.yaredayele.com/api/blog');
+        setBlogs(response.data);
 
+        // Store the fetched blog data in localStorage
+        localStorage.setItem('blogs', JSON.stringify(response.data));
+      } catch (err) {
+        console.error('Error fetching blogs:', err);
+        setError('Could not fetch blogs. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  if (loading) {
+    return <div>Loading blogs...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  // Pagination Logic
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = blogs.slice(indexOfFirstPost, indexOfLastPost);
   const paginate = pageNumber => setCurrentPage(pageNumber);
+
   return (
     <section className="blog" data-page="blog">
       <header>
@@ -29,9 +58,9 @@ const Blogs = () => {
       </header>
       <div className="blog-posts">
         <ul className="blog-posts-list">
-          {currentPosts.map((post, index) => (
+          {currentPosts.map((post) => (
             <BlogPost
-              key={index}
+              key={post.id}
               id={post.id}
               title={post.title}
               date={post.created_at}
@@ -65,6 +94,6 @@ const Blogs = () => {
       </nav>
     </section>
   );
-}
+};
 
 export default Blogs;

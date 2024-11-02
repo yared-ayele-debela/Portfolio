@@ -4,92 +4,105 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Aside = () => {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState(() => {
+    // Load initial state from localStorage
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : {};
+  });
 
   useEffect(() => {
-    axios.get('https://laravel-api.yaredayele.com/api/resume')
-    .then(response => setUser(response.data))
-    .catch(error => console.error('Error fetching user:', error));
-  });
+    // Fetch user data from API
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get('https://laravel-api.yaredayele.com/api/resume');
+        setUser(response.data);
+        // Save to localStorage
+        localStorage.setItem('user', JSON.stringify(response.data));
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      }
+    };
+
+    // Check if user data needs to be fetched
+    if (!user.fullname) { // Check if user data is empty (i.e., no name)
+      fetchUser();
+    }
+  }, [user]);
+
   return (
     <aside className="sidebar">
-        <div className="sidebar-info">
-          <figure className="avatar-box">
-            <img
-              src={"/images/profile.jpg"}
-              alt="Yared Debela Ayele"
-              width="80"
-            />
-          </figure>
+      <div className="sidebar-info">
+        <figure className="avatar-box">
+          <img
+            src={"/images/profile.jpg"}
+            alt="Yared Debela Ayele"
+            width="80"
+          />
+        </figure>
 
-          <div className="info-content">
-            <h1 className="name" title="Richard hanrick">
+        <div className="info-content">
+          <h1 className="name" title="">
             {user.fullname}
-            </h1>
-
-            <p className="title">{user.profession}</p>
-          </div>
-
-          <button className="info_more-btn" data-sidebar-btn>
-            <span>Show Contacts</span>
-
-            <GiClawSlashes />
-          </button>
+          </h1>
+          <p className="title">{user.profession}</p>
         </div>
 
-        <div className="sidebar-info_more">
-          <div className="separator"></div>
+        <button className="info_more-btn" data-sidebar-btn>
+          <span>Show Contacts</span>
+          <GiClawSlashes />
+        </button>
+      </div>
 
-          <ul className="contacts-list">
-            <li className="contact-item">
-              <div className="icon-box">
-                <GiMailbox/>
-                
-              </div>
+      <div className="sidebar-info_more">
+        <div className="separator"></div>
 
-              <div className="contact-info">
-                <p className="contact-title">Email</p>
+        <ul className="contacts-list">
+          <li className="contact-item">
+            <div className="icon-box">
+              <GiMailbox />
+            </div>
 
-                <a href="mailto:richard@example.com" className="contact-link">
-                  {user.email}
-                </a>
-              </div>
-            </li>
+            <div className="contact-info">
+              <p className="contact-title">Email</p>
 
-            <li className="contact-item">
-              <div className="icon-box">
-                <GiPhone/>
-              </div>
+              <a href={`mailto:${user.email}`} className="contact-link">
+                {user.email}
+              </a>
+            </div>
+          </li>
 
-              <div className="contact-info">
-                <p className="contact-title">Phone</p>
+          <li className="contact-item">
+            <div className="icon-box">
+              <GiPhone />
+            </div>
 
-                <a href="tel:+12133522795" className="contact-link">
-                  {user.mobile}
-                </a>
-              </div>
-            </li>
+            <div className="contact-info">
+              <p className="contact-title">Phone</p>
 
-           
+              <a href={`tel:${user.mobile}`} className="contact-link">
+                {user.mobile}
+              </a>
+            </div>
+          </li>
 
-            <li className="contact-item">
-              <div className="icon-box">
-                <GiMayanPyramid/>
-                <ion-icon name="location-outline"></ion-icon>
-              </div>
+          <li className="contact-item">
+            <div className="icon-box">
+              <GiMayanPyramid />
+              <ion-icon name="location-outline"></ion-icon>
+            </div>
 
-              <div className="contact-info">
-                <p className="contact-title">Location</p>
-                <address>{user.location}</address>
-              </div>
-            </li>
-          </ul>
+            <div className="contact-info">
+              <p className="contact-title">Location</p>
+              <address>{user.location}</address>
+            </div>
+          </li>
+        </ul>
 
-          <div className="separator"></div>
-          <SocialMedia />
-        </div>
-      </aside>
-  )
-}
+        <div className="separator"></div>
+        <SocialMedia />
+      </div>
+    </aside>
+  );
+};
 
-export default Aside
+export default Aside;

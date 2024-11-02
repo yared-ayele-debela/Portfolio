@@ -4,34 +4,60 @@ import axios from 'axios';
 import './ProjectDetail.css';
 
 const ProjectDetail = () => {
-
   const { id } = useParams();
   const [project, setProject] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://laravel-api.yaredayele.com/api/project/detail/${id}`)
-      .then(response => {
+    const fetchProjectDetail = async () => {
+      // Check localStorage for cached project data
+      const cachedProject = localStorage.getItem(`project-${id}`);
+      if (cachedProject) {
+        setProject(JSON.parse(cachedProject));
+        setLoading(false); // No need to fetch again, just set loading to false
+        return;
+      }
+
+      try {
+        const response = await axios.get(`https://laravel-api.yaredayele.com/api/project/detail/${id}`);
         setProject(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching project details:', error);
-      });
+
+        // Store the fetched project data in localStorage
+        localStorage.setItem(`project-${id}`, JSON.stringify(response.data));
+      } catch (err) {
+        console.error('Error fetching project details:', err);
+        setError('Could not fetch project details. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjectDetail();
   }, [id]);
 
-  if (!project) {
+  if (loading) {
     return <div>Loading project details...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
   }
 
   return (
     <section className='portfolio'>
       <header>
-        <h2>Project Detail : {project.title}</h2>
+        <h2>Project Detail: {project.title}</h2>
       </header>
       <section className='projects'>
-        <div class="card">
-          <img src={`https://laravel-api.yaredayele.com/storage/projects/${project.cover_image}`} alt={project.title} class="card-image" />
-          <div class="card-content">
-            <h2 class="card-title">{project.title}</h2>
+        <div className="card">
+          <img
+            src={`https://laravel-api.yaredayele.com/storage/projects/${project.cover_image}`}
+            alt={project.title}
+            className="card-image"
+          />
+          <div className="card-content">
+            <h2 className="card-title">{project.title}</h2>
             <br />
             <p><strong>Category:</strong> {project.category}</p>
             <div
@@ -43,8 +69,8 @@ const ProjectDetail = () => {
             <p><strong>End Date:</strong> {project.end_date}</p>
           </div>
         </div>
-        <h3 className='card-title title'>Project Images </h3>
-        <div class="image-gallery">
+        <h3 className='card-title title'>Project Images</h3>
+        <div className="image-gallery">
           {project.images.map((image, index) => (
             <img
               src={`https://laravel-api.yaredayele.com/storage/projects/${image.images}`}

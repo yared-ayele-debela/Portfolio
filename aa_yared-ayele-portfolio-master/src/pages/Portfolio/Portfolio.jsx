@@ -1,29 +1,45 @@
 import axios from 'axios';
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { FaRegEye } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const Portfolio = () => {
-  const [projects, setProjects] = useState([]);
-
-  const [project_category, setProductCategory] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [filteredProjects, setFilteredProjects] = useState([]);
-
-  useEffect(() => {
-    axios.get('https://laravel-api.yaredayele.com/api/projects')
-    .then(response => {
-      setProjects(response.data);
-      setFilteredProjects(response.data);
-    } )
-    .catch(error => console.error('Error fetching user:', error));
-
-    axios.get('https://laravel-api.yaredayele.com/api/project_category')
-    .then(response => setProductCategory(response.data))
-    .catch(error => console.error('Error fetching user:', error));
-
+  const [projects, setProjects] = useState(() => {
+    const savedProjects = localStorage.getItem('projects');
+    return savedProjects ? JSON.parse(savedProjects) : [];
   });
 
+  const [project_category, setProjectCategory] = useState(() => {
+    const savedCategories = localStorage.getItem('project_category');
+    return savedCategories ? JSON.parse(savedCategories) : [];
+  });
+
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [filteredProjects, setFilteredProjects] = useState(projects);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const projectsResponse = await axios.get('https://laravel-api.yaredayele.com/api/projects');
+        const categoriesResponse = await axios.get('https://laravel-api.yaredayele.com/api/project_category');
+
+        setProjects(projectsResponse.data);
+        setProjectCategory(categoriesResponse.data);
+        setFilteredProjects(projectsResponse.data);
+
+        // Save to localStorage
+        localStorage.setItem('projects', JSON.stringify(projectsResponse.data));
+        localStorage.setItem('project_category', JSON.stringify(categoriesResponse.data));
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    // Fetch data only if projects or categories are empty
+    if (projects.length === 0 || project_category.length === 0) {
+      fetchProjects();
+    }
+  }, [projects.length, project_category.length]);
 
   const handleFilterClick = (category) => {
     setSelectedCategory(category);
@@ -59,24 +75,27 @@ const Portfolio = () => {
       <section className="projects">
         <ul className="project-list">
           {filteredProjects.map(project => (
-           <Link to={`/projects/${project.id}`}>
-            <li
-              className="project-item active"
-              data-filter-item
-              data-category={project.category}
-              key={project.id}
-            >
-              <a href="#">
-                <figure className="project-img">
-                  <div className="project-item-icon-box">
-                    <FaRegEye />
-                  </div>
-                  <img src={`https://laravel-api.yaredayele.com/storage/projects/${project.cover_image}`} alt={project.title} loading="lazy" />
-                </figure>
-                <h3 className="project-title">{project.title}</h3>
-                <p className="project-category">{project.category}</p>
-              </a>
-            </li>
+            <Link to={`/projects/${project.id}`} key={project.id}>
+              <li
+                className="project-item active"
+                data-filter-item
+                data-category={project.category}
+              >
+                <a href="#">
+                  <figure className="project-img">
+                    <div className="project-item-icon-box">
+                      <FaRegEye />
+                    </div>
+                    <img
+                      src={`https://laravel-api.yaredayele.com/storage/projects/${project.cover_image}`}
+                      alt={project.title}
+                      loading="lazy"
+                    />
+                  </figure>
+                  <h3 className="project-title">{project.title}</h3>
+                  <p className="project-category">{project.category}</p>
+                </a>
+              </li>
             </Link>
           ))}
         </ul>
