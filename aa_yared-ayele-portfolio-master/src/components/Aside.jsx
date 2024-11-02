@@ -1,36 +1,44 @@
 import { GiCalendar, GiClawSlashes, GiMailbox, GiMayanPyramid, GiPhone } from "react-icons/gi";
 import SocialMedia from "./SocialMedia";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 
 const Aside = () => {
   const [user, setUser] = useState(() => {
-    // Load initial state from localStorage
     const savedUser = localStorage.getItem('user');
     return savedUser ? JSON.parse(savedUser) : {};
   });
 
+  const sidebarRef = useRef(null); // Ref for the sidebar
+
   useEffect(() => {
-    // Fetch user data from API
     const fetchUser = async () => {
       try {
         const response = await axios.get('https://laravel-api.yaredayele.com/api/resume');
         setUser(response.data);
-        // Save to localStorage
         localStorage.setItem('user', JSON.stringify(response.data));
       } catch (error) {
         console.error('Error fetching user:', error);
       }
     };
 
-    // Check if user data needs to be fetched
-    if (!user.fullname) { // Check if user data is empty (i.e., no name)
+    if (!user.fullname) {
       fetchUser();
     }
   }, [user]);
 
+  const elementToggleFunc = (elem) => {
+    elem.classList.toggle("active");
+  };
+
+  const handleSidebarToggle = () => {
+    if (sidebarRef.current) {
+      elementToggleFunc(sidebarRef.current);
+    }
+  };
+
   return (
-    <aside className="sidebar">
+    <aside className="sidebar" ref={sidebarRef} data-sidebar>
       <div className="sidebar-info">
         <figure className="avatar-box">
           <img
@@ -47,7 +55,7 @@ const Aside = () => {
           <p className="title">{user.profession}</p>
         </div>
 
-        <button className="info_more-btn" data-sidebar-btn>
+        <button className="info_more-btn" onClick={handleSidebarToggle} data-sidebar-btn>
           <span>Show Contacts</span>
           <GiClawSlashes />
         </button>
@@ -88,7 +96,6 @@ const Aside = () => {
           <li className="contact-item">
             <div className="icon-box">
               <GiMayanPyramid />
-              <ion-icon name="location-outline"></ion-icon>
             </div>
 
             <div className="contact-info">
